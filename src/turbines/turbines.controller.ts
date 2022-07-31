@@ -27,7 +27,6 @@ export class TurbinesController {
     }*/
 
     @Get('read_file')
-    //public readFile(): Turbines {
     public readFile(){
         return this.turbinesService.readFile();
     }
