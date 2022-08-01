@@ -7,7 +7,7 @@ import { Turbines } from './turbines.interface';
 import * as fs from "fs";
 import * as path from "path";
 import * as Papa from "papaparse";
-
+import { TurbinesDto } from './turbines.dto';
 
 @Injectable()
 export class TurbinesService {
@@ -18,15 +18,21 @@ export class TurbinesService {
         return this.turbines;
     }
 
-    /*public findOne(id: number): Turbines {
-        const post: Turbines = this.turbines.find(turbine => turbine.turbine_id === id);
+    public queryData(post: TurbinesDto): Array<Turbines> {
+        const filterData = this.turbines.filter( 
+            i => Object.entries(post).every(([k, v]) => i[k] === v)
+        );
 
-        if (!post) {
-           throw new NotFoundException('Post not found.')
+        //console.log(filterData);
+        /*{
+            "turbine_id": 40
+        }*/
+        if(!Object.keys(filterData).length){
+           throw new NotFoundException('Information not found.')
         }
 
-        return post;
-    }*/
+        return filterData;
+    }
 
     //
     public async readFile() {        

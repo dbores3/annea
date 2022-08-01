@@ -1,16 +1,15 @@
 import {  
     Body,
     Controller,
-    Delete,
     Get,
     Param,
     ParseIntPipe,
     Post,
-    Put,
     UseFilters, 
 } from '@nestjs/common';
 import { Turbines } from './turbines.interface';
 import { TurbinesService } from './turbines.service';
+import { TurbinesDto } from './turbines.dto';
 
 @Controller('turbines')
 export class TurbinesController {
@@ -21,10 +20,12 @@ export class TurbinesController {
         return this.turbinesService.findAll();
     }
 
-    /*@Get(':id')
-    public findOne(@Param('id', ParseIntPipe) id: number): Turbines {
-        return this.turbinesService.findOne(id);
-    }*/
+    @Post()
+    //Gets the Post variables, validates the data & process the data
+    public queryData(@Body() post: TurbinesDto): Array<Turbines> {
+        //console.log(post);
+        return this.turbinesService.queryData(post);
+    }
 
     @Get('read_file')
     public readFile(){
