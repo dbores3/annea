@@ -1,34 +1,42 @@
 import {  
-    Body,
     Controller,
     Get,
     Param,
-    ParseIntPipe,
-    Post,
-    UseFilters, 
+    Query,
+    HttpCode,
+    HttpStatus
 } from '@nestjs/common';
-import { Turbines } from './turbines.interface';
 import { TurbinesService } from './turbines.service';
 import { TurbinesDto } from './turbines.dto';
+import { FileDto } from './file.dto';
 
 @Controller('turbines')
 export class TurbinesController {
     constructor(private readonly turbinesService: TurbinesService) {}
 
+    /**
+     * @desc Reads the csv file to query & fetches the data
+     * @author David Bores
+     * @param query 
+     * @returns 
+    **/
+   
     @Get()
-    public findAll(): Array<Turbines> {
-        return this.turbinesService.findAll();
+    @HttpCode(HttpStatus.OK)
+    public queryData(@Query() query: TurbinesDto) {
+        return this.turbinesService.queryData(query);
     }
 
-    @Post()
-    //Gets the Post variables, validates the data & process the data
-    public queryData(@Body() post: TurbinesDto): Array<Turbines> {
-        //console.log(post);
-        return this.turbinesService.queryData(post);
-    }
+    /**
+     * @desc Queries the data accordingly to the selected filters sent by Query parameters
+     * @author David Bores
+     * @param params 
+     * @returns 
+    **/
 
-    @Get('read_file')
-    public readFile(){
-        return this.turbinesService.readFile();
+    @Get('read_file/:file')
+    @HttpCode(HttpStatus.OK)
+    public readFile(@Param() params: FileDto): Promise<string> {
+        return this.turbinesService.readFile(params);
     }
 }
