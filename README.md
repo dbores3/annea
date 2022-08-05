@@ -1,73 +1,70 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# ANNEA API
+## _Queries data from turbines operation_
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+The API is in charge of reading different CSV files with turbines data, like indicators, variables & times, and allows the user to easily query data via GET requests. Powered with NodeJS & NestJS. Right now it allows to work only with previously uploaded CSV files, but it is made in a way that in the future, it will allow the user to upload & select the file to work with.
 
-## Description
+## Features & Usage
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- The app allows the users to select which CSV file to work with & make different queries to the data.
+- To select the file yo can GET request the URL ```<ip>:<port>/turbines/read_file/<fileName>.csv```
 
+- Once the file is selected, you can start querying the data by making a GET request to <ip>:<port>/turbines/ that it would return ALL the rows 
+- To make more advanced queries, you can send Query parameters to the GET request with the name of the column or other varaibles. For example a GET request to ```<ip>:<port>/turbines/?startDate=2017-01-03 02:30:00&endDate=2017-01-03 07:40:00&minIndicator=99.99918568682843&maxIndicator=99.99933574202548&turbine_id=41```
+
+
+## Query variables accepted
+
+Add any of the foolowinf variables to the /turbines request
+
+| Variable | Description |
+| ------ | ------ |
+| turbine_id | Turbine's id |
+| indicator | Turbine's indicator |
+| variable | Turbine's variable |
+| timestamp | To search a specific date & time |
+| startDate | To search starting from a specific date & time |
+| endDate | To search up to a specific date & time |
+| maxIndicator | To search up to a specific indicator value |
+| minIndicator | To search starting from a specific indicator value |
+
+## Tech
+
+This API uses a number of open source projects to work properly:
+
+- [Typescript](https://www.typescriptlang.org/) - Strongly typed programming language that builds on Javascript
+- [NodeJS](https://nodejs.org/en/) - JavaScript runtime environment.
+- [NestJS](https://nestjs.com/) - Web Framework for NodeJS, based on Typescript & inspired by Angular
+- [Snyk](https://snyk.io/) - Tool to check the code's security
+
+## Application Structure
+__src/__ - This folder contains all the sources of the API.
+__dist/__ - This folder contains the minimized version of the source code.
+__src/turbines/__ - This folder contains all files related to the Turbines module & logic.
+__files/__ - This folder contains the files that are avaible to query into the API.
 ## Installation
 
-```bash
-$ npm install
+This API requires NPM/Yarn to run.
+
+Install & run it locally.
+
+```sh
+git clone https://github.com/dbores3/annea
+cd annea/
+npm i
+npm run start:dev
 ```
 
-## Running the app
+## Dependencies
 
-```bash
-# development
-$ npm run start
+This API is currently extended with the following dependencies.
+Instructions on how to use them in your own application are linked below.
 
-# watch mode
-$ npm run start:dev
+| Dependency | URL |
+| ------ | ------ |
+| class-transformer | https://github.com/nestjs/class-transformer |
+| class-validator | https://github.com/typestack/class-validator |
+| papaparse | https://www.papaparse.com/ |
 
-# production mode
-$ npm run start:prod
+127.0.0.1
 ```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
