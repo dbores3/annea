@@ -9,8 +9,16 @@ import {
 import { TurbinesService } from './turbines.service';
 import { TurbinesDto } from './turbines.dto';
 import { FileDto } from './file.dto';
+import { 
+    ApiTags, 
+    ApiOkResponse,
+    ApiNotFoundResponse
+} from '@nestjs/swagger';
+
 
 @Controller('turbines')
+@ApiTags('turbines')
+
 export class TurbinesController {
     constructor(private readonly turbinesService: TurbinesService) {}
 
@@ -23,6 +31,8 @@ export class TurbinesController {
    
     @Get()
     @HttpCode(HttpStatus.OK)
+    @ApiOkResponse({ description: 'Turbines queried correctly.'})
+    @ApiNotFoundResponse({ description: 'Information not found.' })
     public queryData(@Query() query: TurbinesDto) {
         return this.turbinesService.queryData(query);
     }
@@ -36,6 +46,8 @@ export class TurbinesController {
 
     @Get('read_file/:file')
     @HttpCode(HttpStatus.OK)
+    @ApiOkResponse({ description: 'File read correctly.'})
+    @ApiNotFoundResponse({ description: 'File not found.' })
     public readFile(@Param() params: FileDto): Promise<string> {
         return this.turbinesService.readFile(params);
     }
