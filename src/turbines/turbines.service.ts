@@ -69,6 +69,11 @@ export class TurbinesService {
     public async readFile(params: FileDto): Promise<string>{ 
         // Gets the selected file to be read       
         const csvFilePath = path.resolve('./files/'+params['file'])
+
+        // Checks if file exists
+        if (!fs.existsSync(csvFilePath)) {
+            throw new NotFoundException('File not found.')
+        }
         
         // Promise that parses the CSV content & dynamically sets the typing
         const readCSV = async (filePath) => {

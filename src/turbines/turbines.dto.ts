@@ -4,6 +4,7 @@ import {
   IsOptional
 } from 'class-validator';
 import { Type } from 'class-transformer';
+//import 'reflect-metadata';
 
 /**
  * @desc Turbine's DTO, validates the data sent in the request that it will be used in the queries

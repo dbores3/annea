@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { TurbinesDto } from './turbines.dto';
 
 describe('TurbinesDto', () => {
