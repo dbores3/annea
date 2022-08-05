@@ -4,7 +4,8 @@ import {
     Param,
     Query,
     HttpCode,
-    HttpStatus
+    HttpStatus,
+    UseFilters
 } from '@nestjs/common';
 import { TurbinesService } from './turbines.service';
 import { TurbinesDto } from './turbines.dto';
@@ -14,11 +15,12 @@ import {
     ApiOkResponse,
     ApiNotFoundResponse
 } from '@nestjs/swagger';
+import { HttpExceptionFilter } from '../filters/http-exception.filter';
 
 
 @Controller('turbines')
 @ApiTags('turbines')
-
+@UseFilters(HttpExceptionFilter)
 export class TurbinesController {
     constructor(private readonly turbinesService: TurbinesService) {}
 
