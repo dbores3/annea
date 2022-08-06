@@ -10,7 +10,7 @@ The API is in charge of reading different CSV files with turbines data, like ind
 - To select the file yo can GET request the URL ```<ip>:<port>/turbines/read_file/<fileName>.csv```
 
 - Once the file is selected, you can start querying the data by making a GET request to <ip>:<port>/turbines/ that it would return ALL the rows 
-- To make more advanced queries, you can send Query parameters to the GET request with the name of the column or other varaibles. For example a GET request to ```<ip>:<port>/turbines/?startDate=2017-01-03 02:30:00&endDate=2017-01-03 07:40:00&minIndicator=99.99918568682843&maxIndicator=99.99933574202548&turbine_id=41```
+- To make more advanced queries, you can send Query parameters to the GET request with the name of the column or other varaibles. For example a GET request to ```<ip>:<port>/turbines?startDate=2017-01-03 02:30:00&endDate=2017-01-03 07:40:00&minIndicator=99.99918568682843&maxIndicator=99.99933574202548&turbine_id=41```
 
 
 ## Query variables accepted
